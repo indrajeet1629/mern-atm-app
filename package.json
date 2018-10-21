@@ -1,0 +1,24 @@
+{
+  "name": "atm-mern",
+  "version": "1.0.0",
+  "description": "Simple ATM Functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "node",
+    "api",
+    "functionality"
+  ],
+  "author": "Indrajeet Naik",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.4",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.4"
+  }
+}

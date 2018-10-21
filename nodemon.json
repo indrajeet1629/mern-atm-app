@@ -1,0 +1,6 @@
+{
+  "env": {
+    "MONGO_ATLAS_PWD": "password@123",
+    "MONGO_ATLAS_USERNAME": "naik.indra@gmail.com"
+  }
+}
