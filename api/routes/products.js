@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 // Schema Model
 const Product = require("../models/product");
 
-// get (url,callback(req, res, next))
+// post (url,callback(req, res, next))
 router.post("/", (req, res, next) => {
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
