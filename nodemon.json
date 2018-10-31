@@ -1,6 +1,8 @@
 {
   "env": {
     "MONGO_ATLAS_PWD": "password@123",
-    "MONGO_ATLAS_USERNAME": "naik.indra@gmail.com"
+    "MONGO_ATLAS_USERNAME": "naik.indra@gmail.com",
+    "DB_NAME": "atm_module",
+    "APP_HOST": "localhost"
   }
 }

@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
-const productSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  name: String,
-  price: Number
+const cardSchema = mongoose.Schema({
+  card_number: Number,
+  pin: Number,
+  balance: Number,
+  date: { type: Date, default: Date.now },
+  is_active: { type: Boolean, default: true }
 });
-// model(name, Schema)
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Card", cardSchema);

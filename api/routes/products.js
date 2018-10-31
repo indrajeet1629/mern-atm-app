@@ -2,25 +2,37 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 // Schema Model
-const Product = require("../models/product");
+const Card = require("../models/product");
 
-// post (url,callback(req, res, next))
+// Add Card.
 router.post("/", (req, res, next) => {
-  const product = new Product({
-    _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    price: req.body.price
+  const card = new Card({
+    card_number: req.body.card_number,
+    pin: req.body.pin,
+    balance: req.body.balance
   });
-  product
+  card
     .save()
     .then(result => {
-      console.log("result", result);
+      res.status(201).json({
+        message: "New Product Added",
+        card: card
+      });
     })
-    .catch(error => {});
-  res.status(201).json({
-    message: "Products Get API",
-    card: product
-  });
+    .catch(error => {
+      console.log("Error", error);
+    });
+});
+
+router.get("/", (req, res, next) => {
+  Card.find()
+    .exec()
+    .then(doc => {
+      res.status(200).json(doc);
+    })
+    .catch(err => {
+      res.status(500).json({ error: err });
+    });
 });
 
 module.exports = router;

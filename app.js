@@ -7,19 +7,16 @@ const bodyParser = require("body-parser");
 
 // API's Router
 const productRoutes = require("./api/routes/products");
+const authinticate = require("./api/routes/authenticate");
 
 // MongoDB
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb://" +
-    process.env.MONGO_ATLAS_USERNAME +
-    ":" +
-    process.env.MONGO_ATLAS_PWD +
-    "@mern-atm-shard-00-00-xgjmi.mongodb.net:27017,mern-atm-shard-00-01-xgjmi.mongodb.net:27017,mern-atm-shard-00-02-xgjmi.mongodb.net:27017/test?ssl=true&replicaSet=mern-atm-shard-0&authSource=admin&retryWrites=true",
-  { useNewUrlParser: true }
-);
 
-// Morgan Middleware for request Logger.
+mongoose
+  .connect(`mongodb://${process.env.APP_HOST}/${process.env.DB_NAME}`)
+  .then(() => console.log("Connected to MongoDB ..."))
+  .catch(err => console.log("Couldn't connect to MongoDB ..."));
+
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -42,8 +39,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes Which Should Handle Requests
-app.use("/", productRoutes);
+// Declared Routes.
+app.use("/cards", productRoutes);
+app.use("/", authinticate);
 
 // All Undeclared Paths Should Go through this
 app.use((req, res, next) => {
@@ -61,5 +59,4 @@ app.use((error, req, res, next) => {
   });
 });
 
-// module.exports.app = app;
 module.exports = app;
