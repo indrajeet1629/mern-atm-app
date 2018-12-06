@@ -21,11 +21,16 @@ router.post("/", (req, res, next) => {
     })
     .catch(error => {
       console.log("Error", error);
+      res.status(500).json({
+        message: "Something went wrong"
+      });
     });
 });
 
+// list Cards
 router.get("/", (req, res, next) => {
   Card.find()
+    .select({ card_number: 1, balance: 1, is_active: 1 })
     .exec()
     .then(doc => {
       res.status(200).json(doc);

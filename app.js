@@ -4,6 +4,8 @@ const app = express();
 const morgan = require("morgan");
 // Body-Parser for Better Reading Request and Response
 const bodyParser = require("body-parser");
+// Custom Middleware
+const validateUrl = require("./api/middlewares/validateUrl");
 
 // API's Router
 const productRoutes = require("./api/routes/products");
@@ -13,12 +15,16 @@ const authinticate = require("./api/routes/authenticate");
 const mongoose = require("mongoose");
 
 mongoose
-  .connect(`mongodb://${process.env.APP_HOST}/${process.env.DB_NAME}`)
+  .connect(
+    `mongodb://localhost:27017/atm_module`,
+    { useNewUrlParser: true }
+  )
   .then(() => console.log("Connected to MongoDB ..."))
-  .catch(err => console.log("Couldn't connect to MongoDB ..."));
+  .catch(err => console.log("Couldn't connect to MongoDB ...", err));
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static("public"));
 app.use(bodyParser.json());
 
 // Allow CORS - Cross Origin Access Control
@@ -44,11 +50,7 @@ app.use("/cards", productRoutes);
 app.use("/", authinticate);
 
 // All Undeclared Paths Should Go through this
-app.use((req, res, next) => {
-  const error = new Error("Not Found");
-  error.status = 404;
-  next(error);
-});
+app.use(validateUrl);
 
 app.use((error, req, res, next) => {
   res.status(error.status || 500);

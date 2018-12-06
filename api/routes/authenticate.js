@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Card = require("../models/product");
 
-router.post("/", (req, res, next) => {
+router.post("/authenticate", (req, res, next) => {
   const { card_number, pin } = req.body;
 
   Card.findOne(
